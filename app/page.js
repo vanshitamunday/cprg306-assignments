@@ -72,6 +72,14 @@ export default function Home() {
               Week 9
             </Link>
           </li>
+          <li>
+            <Link
+              href="/week-10"
+              className="block w-full text-lg font-medium text-gray-300 hover:text-white px-4 py-3 rounded-md transition duration-200 bg-gray-800 hover:bg-gray-700"
+            >
+              Week 10
+            </Link>
+          </li>
         </ul>
       </div>
     </main>
