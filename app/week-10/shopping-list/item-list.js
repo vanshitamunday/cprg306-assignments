@@ -2,7 +2,7 @@
 import Item from "./item";
 import React, { useState } from "react";
 
-export function ItemList({ items, onItemSelect }) {
+export function ItemList({ items, onItemSelect, onDelete }) {
   const [sortBy, setSortBy] = useState("name");
 
   const handleSortchange = (newSortBy) => {
@@ -57,12 +57,34 @@ export function ItemList({ items, onItemSelect }) {
         <div key={category}>
           <h2 className="capitalize">{category}</h2>
           {grouped[category].map((item) => (
-            <Item key={item.id} {...item} onSelect={() => onItemSelect(item.name)}/>
+            <div key={item.id} className="flex flex-row">
+              <Item {...item} onSelect={() => onItemSelect(item.name)} />
+              {onDelete && (
+                <button
+                  onClick={() => onDelete(item)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
+                >
+                  Delete
+                </button>
+              )}
+            </div>
           ))}
         </div>
       ));
     } else {
-      return sortingHat.map((item) => <Item key={item.id} {...item} onSelect={() => onItemSelect(item.name)}/>);
+      return sortingHat.map((item) => (
+        <div key={item.id} className="flex flex-row">
+          <Item {...item} onSelect={() => onItemSelect(item.name)} />
+          {onDelete && (
+            <button
+              onClick={() => onDelete(item)}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      ));
     }
   };
   return (

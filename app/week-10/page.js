@@ -12,7 +12,7 @@ export default function LandingPage() {
     const handleSignIn = async (signInFunction) => {
     try {
         await signInFunction();
-        router.push("week-9/shopping-list");
+        router.push("week-10/shopping-list");
     } catch (error) {
         if(error.code === 'auth/popup-closed-by-user') {
             console.log('Popup closed by user. Sign-in Cancelled.')
@@ -43,13 +43,13 @@ export default function LandingPage() {
                 Sign Out
             </button>
             <Link
-            href="week-9/shopping-list"
+            href="week-10/shopping-list"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
             >
                 Shopping List
             </Link>
             <Link 
-            href="week-9/profile" 
+            href="week-10/profile" 
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
             >
                 Profile

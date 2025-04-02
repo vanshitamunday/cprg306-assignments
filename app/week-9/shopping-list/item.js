@@ -1,12 +1,8 @@
-export default function Item({ name, quantity, category, onSelect }) {
+export default function Items( { name, quantity, category, onSelect } ) {
   return (
-    <li
-      className="bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-700 cursor-pointer transition-all"
-      onClick={() => onSelect(name)} // Calls the onSelect function when clicked
-    >
-      <p className="text-lg font-semibold text-white">{name}</p>
-      <p className="text-sm text-gray-400">Category: {category}</p>
-      <p className="text-sm text-gray-400">Quantity: {quantity}</p>
-    </li>
+      <div className="border border-sky-500 bg-sky-800 w-full max-w-xs m-4 p-2 ml-5 cursor-pointer hover:bg-sky-700" onClick={() => onSelect(name)}>
+      <div className="text-xl font-bold">{name}</div>
+      <div>Buy {quantity} in {category}</div>
+      </div>
   );
 }

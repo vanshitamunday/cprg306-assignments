@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../_utils/firebase";
 
-export default function NewItem({onAddItem}) {
+export default function NewItem({onAddItem, userID}) {
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("produce");
+  const [category, setCategory] = useState("Produce");
   const [quantity, setQuantity] = useState(1);
   const increment = (event) => {
     event.preventDefault();
@@ -18,28 +20,21 @@ export default function NewItem({onAddItem}) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event) => { 
     event.preventDefault();
 
-    const genID = (length) => {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let result = '';
-      const charsLength = chars.length;
-      for(let i=0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * charsLength));
-      }
-
-      return result;
-    }
-
     const item = {
-      id: genID(18),
       name: name,
       quantity: quantity,
-      category: category,
+      category: category.toLowerCase(),
     };
-    onAddItem(item);
-    event.target.reset();
+
+    try {
+      onAddItem(item);
+      event.target.reset();
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
   };
   return (
 <div className="flex flex-col container mx-auto p-4">
@@ -88,7 +83,7 @@ export default function NewItem({onAddItem}) {
           className="bg-gray-700 border border-gray-600 rounded-md w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-500 text-white text-sm"
           id="category"
           value={category}
-          onChange={(e) => setCategory(e.target.value.toLocaleLowerCase())}
+          onChange={(e) => setCategory(e.target.value)}
         >
           <option value="Produce">Produce</option>
           <option value="Dairy">Dairy</option>
@@ -114,3 +109,4 @@ export default function NewItem({onAddItem}) {
 </div>
   );
 }
+

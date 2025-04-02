@@ -15,8 +15,13 @@ const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
-    const gitHubSignIn = () => {
+    const gitHubSignIn = async () => {
     const provider = new GithubAuthProvider();
+    try{
+        await signInWithPopup(auth, provider);
+    } catch(error) {
+        console.error("Github Sign in error: ", error);
+    }
     return signInWithPopup(auth, provider);
     };
 
@@ -24,8 +29,13 @@ export const AuthContextProvider = ({ children }) => {
     return signOut(auth);
     };
 
-    const googleSignIn = () => {
+    const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
+        try{
+            await signInWithPopup(auth,provider);
+        } catch(error) {
+            console.error("Google Sign in error: ", error);
+        }
         return signInWithPopup(auth, provider);
     };
 
